@@ -2,8 +2,11 @@
 
 export const getCustomers = async () => {
   const res = await fetch("/api/customers");
-  if (!res.ok) throw new Error("Failed to fetch customers");
-  return await res.json();
+  const text = await res.text();
+  console.log('Response status:', res.status, 'Body:', text);
+  if (!res.ok) throw new Error("Failed to fetch customers: " + text);
+  if (!text) throw new Error("Empty response from server");
+  return JSON.parse(text);
 };
 
 export const getCustomer = async (id) => {
