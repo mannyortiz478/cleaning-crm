@@ -131,17 +131,41 @@ This provides an automated pipeline with zero manual deployment steps.
 
 ---
 
-## 5. Environment Configuration
+## 5. Environment Configuration & Security
 
-Secrets are kept in environment variables rather than source code. The primary
-variable used is:
+Sensitive information (connection strings, API keys, etc.) is **never stored in
+source code or committed to the repository**. Instead:
+
+- Use environment variables / application settings provided by Azure Static Web
+  Apps. These values are only available at runtime to the serverless API
+  and are not exposed to the client.
+- Do not hard‑code any secrets or publish `.env`/`local.settings.json` files.
+- Ensure your GitHub repo does not contain any keys (use `.gitignore` accordingly).
+
+The primary setting used by the backend is:
 
 ```
 COSMOS_DB_CONNECTION_STRING
 ```
 
-Added under the Static Web App's environment settings and injected into the
-Azure Functions runtime.
+This string lives in the Static Web App's configuration and is accessed by the
+Azure Functions process via `process.env`. On the client side (React), all
+requests go to relative `/api/*` routes; the actual database credentials remain
+on the server and are never sent to the browser.
+
+### Protecting the API
+
+Although the Azure Functions endpoints are part of the public deployment, they
+contain no hard-coded secrets. To restrict access further you can:
+
+- Use authentication/authorization on the Static Web App (e.g. Azure AD,
+  GitHub login) and add `authLevel` rules in `function.json` to limit anonymous
+  calls.
+- Implement additional validation or token checks in your functions before
+  processing requests.
+
+Following these practices ensures that users can interact with the CRM UI but
+have no visibility into internal API keys or database connection strings.
 
 ---
 

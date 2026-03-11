@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Azure Functions local settings (contains secrets)
+api/local.settings.json
+
+# other secrets
+.env
+
