@@ -108,11 +108,33 @@ function App() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex">
+      {/* Sidebar */}
+      <aside className="w-64 bg-white shadow-lg flex-shrink-0">
+        <div className="p-6">
+          <h2 className="text-2xl font-bold text-blue-600 mb-6">Cleaning CRM</h2>
+          <nav>
+            <ul className="space-y-4">
+              <li>
+                <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">
+                  Customers
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+
+      {/* Main content area */}
+      <main className="flex-grow p-8 max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">Cleaning CRM</h1>
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">Customers</h1>
           <p className="text-gray-600">Manage your customer relationships</p>
         </div>
 
@@ -384,7 +406,7 @@ function App() {
             </div>
           )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
