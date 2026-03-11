@@ -47,6 +47,9 @@ function App() {
         zip: form.zip,
       },
     };
+    if (editing) {
+      customer.id = editing;
+    }
     try {
       if (editing) {
         await updateCustomer(editing, customer);
